@@ -3,68 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'amant 情人美學 | 教育培訓</title>
+    <title>L'amant 情人美學 | 課程資訊</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #D7cfc8;
-            --primary-title: #524941;
+            --bg-color: #D7cfc8; 
+            --card-bg: #ffffff;
+            --inner-card-bg: #f9f8f6;
+            --primary-title: #524941; 
             --main-text: #6d635a;
-            --card-bg: #fdfcfb;
-            --accent-color: #bfaea0;
+            --dark-btn: #4a4540;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--main-text);
             font-family: 'Noto Serif TC', serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.6;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* 導覽選單 */
-        nav {
+        /* 頂部導覽 */
+        header {
+            text-align: center;
+            padding: 30px 0 10px;
+            width: 100%;
             position: sticky;
             top: 0;
-            background-color: rgba(215, 207, 200, 0.9);
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            padding: 15px 0;
-            z-index: 1000;
+            background-color: rgba(215, 207, 200, 0.95);
+            z-index: 100;
             backdrop-filter: blur(5px);
         }
 
-        .nav-link {
+        nav {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 20px;
+            justify-content: center;
+            scrollbar-width: none;
+        }
+
+        .nav-item {
+            padding: 8px 18px;
+            border: 1px solid rgba(82, 73, 65, 0.2);
+            border-radius: 25px;
+            font-size: 14px;
+            background: white;
+            color: var(--main-text);
             text-decoration: none;
-            color: var(--primary-title);
-            margin: 0 10px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            padding: 5px 12px;
-            border-radius: 20px;
-            transition: 0.3s;
+            cursor: pointer;
+            white-space: nowrap;
         }
 
-        .nav-link:hover {
-            background-color: var(--accent-color);
+        .nav-item.active {
+            background: var(--dark-btn);
             color: white;
+            border-color: var(--dark-btn);
         }
 
-        /* 容器 */
+        /* 主容器 */
         .container {
-            max-width: 800px;
+            max-width: 500px;
             width: 90%;
-            padding: 40px 0;
+            padding-bottom: 120px;
         }
 
         section {
-            display: none; /* 預設隱藏，由 JS 控制顯示 */
-            animation: fadeIn 0.5s ease-in-out;
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
         section.active {
@@ -76,101 +83,295 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 字卡排版 */
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        h1, h2, h3 {
-            color: var(--primary-title);
-            margin-top: 0;
-        }
-
-        .slogan {
-            font-size: 1.1rem;
+        .page-header {
             text-align: center;
-            border-bottom: 1px solid var(--accent-color);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-            font-style: italic;
+            margin: 30px 0;
+            letter-spacing: 3px;
         }
 
-        /* 按鈕風格 */
-        .btn-group {
+        .page-header h1 {
+            font-size: 24px;
+            color: var(--primary-title);
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        /* 大卡片 */
+        .main-card {
+            background: var(--card-bg);
+            border-radius: 35px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .intro-slogan {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.8;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        /* 內嵌子卡片 */
+        .inner-card {
+            background: var(--inner-card-bg);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e0e0e0;
+        }
+
+        .inner-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: var(--primary-title);
+            letter-spacing: 1px;
+        }
+
+        .inner-card ul {
+            margin: 0; padding-left: 18px;
+            font-size: 14px;
+            color: var(--main-text);
+        }
+
+        .inner-card li { margin-bottom: 6px; }
+
+        .highlight-box {
+            text-align: center;
+            background: #fdfcfb;
+            padding: 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+            border: 1px dashed #d1c7be;
+        }
+
+        /* 底部固定區 */
+        .footer-action {
+            position: fixed;
+            bottom: 25px;
+            width: 92%;
+            max-width: 460px;
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 15px;
-            background-color: var(--accent-color);
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            border: none;
+        .btn-back {
+            background: white;
+            border: 1px solid #ddd;
+            width: 80px;
+            border-radius: 25px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            color: var(--main-text);
             cursor: pointer;
         }
 
-        .btn:hover {
-            filter: brightness(0.9);
-        }
-
-        .footer-btns {
-            margin-top: 50px;
+        .btn-reserve {
+            flex-grow: 1;
+            background: var(--dark-btn);
+            color: white;
             text-align: center;
-            border-top: 1px solid rgba(0,0,0,0.1);
-            padding-top: 30px;
-        }
-
-        /* 列表風格 */
-        ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        li {
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-        }
-
-        .day-title {
+            padding: 15px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
             font-weight: bold;
-            color: var(--primary-title);
-            display: block;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="nav-link" onclick="showPage('overview')">課程總覽</a>
-        <a href="#" class="nav-link" onclick="showPage('internship')">實習機制</a>
-        <a href="#" class="nav-link" onclick="showPage('course-8days')">八天系統課</a>
-        <a href="#" class="nav-link" onclick="showPage('registration')">報名流程</a>
-        <a href="#" class="nav-link" onclick="showPage('qa')">Q&A</a>
-    </nav>
+    <header>
+        <nav id="mainNav">
+            <div class="nav-item active" onclick="showPage('overview', this)">課程總覽</div>
+            <div class="nav-item" onclick="showPage('internship', this)">實習機制</div>
+            <div class="nav-item" onclick="showPage('system8', this)">八天系統課</div>
+            <div class="nav-item" onclick="showPage('steps', this)">報名流程</div>
+            <div class="nav-item" onclick="showPage('qa', this)">Q&A</div>
+        </nav>
+    </header>
 
     <div class="container">
         
         <section id="overview" class="active">
-            <div class="card">
-                <p class="slogan">— 從零基
+            <div class="page-header"><h1>Overview</h1></div>
+            <div class="main-card">
+                <div class="intro-slogan">
+                    — 從零基石到職人接客 —<br>
+                    <strong>定義美甲教學新標準！</strong>
+                </div>
+                <p>L'amant 獨創「階梯式技術系統」，將複雜工藝拆解為標準化流程，從基礎理論、精準操作到商業實戰，陪妳走完從「學會」到「職業化」的最後一哩路。</p>
+                
+                <div class="inner-card" style="border-left-color: #bfaea0; cursor: pointer;" onclick="document.querySelector('[onclick*=\'system8\']').click()">
+                    <h3>八天系統課 〉</h3>
+                    <p style="font-size: 13px; margin: 0;">從零開始的完整職業化訓練</p>
+                </div>
+                <div class="inner-card">
+                    <h3>進階大師班 〉</h3>
+                    <p style="font-size: 13px; margin: 0;">技術精進與風格風格建立（內容暫定）</p>
+                </div>
+                <div class="inner-card">
+                    <h3>一日班 〉</h3>
+                    <p style="font-size: 13px; margin: 0;">針對特定技術快速突破（內容暫定）</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="internship">
+            <div class="page-header"><h1>Internship</h1></div>
+            <div class="main-card">
+                <div class="intro-slogan">
+                    <strong>「真．實務對接」</strong><br>
+                    獨家門市實習制、雙重技術考核
+                </div>
+                <p>從學會技術到穩妥接客，我們全程在線，消弭妳面對真實市場的恐懼感。讓妳不再只是看影片自學，而是擁有面對市場、客人的真本事。</p>
+                
+                <div class="highlight-box">「我們不只教技術，更陪妳走過最不安的實踐過程。」</div>
+
+                <div class="inner-card">
+                    <h3>門市觀摩見習</h3>
+                    <ul><li>進入真實美甲沙龍環境，觀察職人接客細節與服務流程。</li></ul>
+                </div>
+                <div class="inner-card">
+                    <h3>雙重技術考核體系</h3>
+                    <ul><li>建立精準手感，通過內部標準方可進入實作階段。</li></ul>
+                </div>
+                <div class="inner-card">
+                    <h3>陪跑式結業</h3>
+                    <ul><li>導師全程陪伴，確保技術穩定輸出，達成實務無縫對接。</li></ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="system8">
+            <div class="page-header"><h1>8-Days Course</h1></div>
+            <div class="main-card">
+                <div class="inner-card">
+                    <h3>Day 1｜基礎觀念與工具</h3>
+                    <ul>
+                        <li>指甲構造與問題甲判斷</li>
+                        <li>美甲工具認識與使用</li>
+                        <li>前置保養理論與衛生消毒</li>
+                    </ul>
+                </div>
+                <div class="inner-card">
+                    <h3>Day 2｜手部基礎保養</h3>
+                    <ul>
+                        <li>修型（方／圓／杏仁）</li>
+                        <li>甘皮處理（推／剪）</li>
+                        <li>指緣整理與完整保養流程</li>
+                    </ul>
+                </div>
+                <div class="inner-card">
+                    <h3>Day 3｜磨甲機＋卸甲安全</h3>
+                    <ul>
+                        <li>磨甲機操作角度與力道</li>
+                        <li>包卸流程與物理卸甲差異</li>
+                        <li>立體素材安全拆除</li>
+                    </ul>
+                </div>
+                <div class="inner-card">
+                    <h3>Day 4｜單色凝膠</h3>
+                    <ul>
+                        <li>凝膠前置處理、單色操作</li>
+                        <li>平整度與極致包邊</li>
+                        <li>凝膠持久度關鍵技巧</li>
+                    </ul>
+                </div>
+                <div class="inner-card">
+                    <h3>Day 5｜設計技法（基礎）</h3>
+                    <ul>
+                        <li>璀璨與雙色漸層</li>
+                        <li>法式微笑線</li>
+                        <li>商業熱門線條設計</li>
+                    </ul>
+                </div>
+                <div class="inner-card">
+                    <h3>Day 6｜進階設計</h3>
+                    <ul>
+                        <li>豹紋動物紋理</li>
+                        <li>經典琥珀設計</li>
+                        <li>多層次藝術暈染技巧</li>
+                    </ul>
+                </div>
+                <div class="inner-card">
+                    <h3>Day 7｜足部保養＋足部凝膠</h3>
+                    <ul>
+                        <li>足部泡腳與護理流程</li>
+                        <li>去角質、足部修型</li>
+                        <li>足部單色凝膠實作</li>
+                    </ul>
+                </div>
+                <div class="inner-card">
+                    <h3>Day 8｜延甲・矯正課程</h3>
+                    <ul>
+                        <li>凝膠延甲結構建立</li>
+                        <li>補甲技巧與矯正基礎</li>
+                        <li>穿戴甲製作基礎</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="steps">
+            <div class="page-header"><h1>Registration</h1></div>
+            <div class="main-card">
+                <div class="inner-card">
+                    <h3>STEP 01 諮詢洽詢</h3>
+                    <p>透過 LINE 或 IG 聯繫，確認課程細節與適合梯次。</p>
+                </div>
+                <div class="inner-card">
+                    <h3>STEP 02 資格審核</h3>
+                    <p>了解學習需求，確認報名梯次名額。</p>
+                </div>
+                <div class="inner-card">
+                    <h3>STEP 03 完成報名</h3>
+                    <p>支付訂金或全額學費，保留正式學員名額。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="qa">
+            <div class="page-header"><h1>Q & A</h1></div>
+            <div class="main-card">
+                <div class="inner-card">
+                    <h3>Q：完全沒有基礎可以學嗎？</h3>
+                    <p>A：可以的，我們的系統課專為零基礎設計，從最基礎的工具拿法開始教學。</p>
+                </div>
+                <div class="inner-card">
+                    <h3>Q：課程期間需要自己買材料嗎？</h3>
+                    <p>A：我們提供上課期間完整的使用材料，妳可以專心在技術練習上。</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="footer-action">
+        <div class="btn-back" onclick="showPage('overview', document.querySelector('.nav-item'))">首頁</div>
+        <a href="https://lin.ee/s0aLUQv" class="btn-reserve">立即預約諮詢</a>
+        <a href="https://www.instagram.com/le_amant.ofcl/" class="btn-back" style="width: 50px;">IG</a>
+    </div>
+
+    <script>
+        function showPage(pageId, element) {
+            // 切換分頁顯示
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
+            // 切換選單樣式
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+
+            // 自動捲回頂部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
