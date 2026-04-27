@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'amant | 專業美甲教學</title>
+    <style>
+        /* 溫柔米白裸色系與全局設定 */
+        :root {
+            --bg-color: #FAF6F3; /* 淺米白底色 */
+            --card-bg: #FFFFFF; /* 卡片白底 */
+            --text-main: #5C4F47; /* 深褐灰色（代替純黑，更溫柔） */
+            --text-light: #8A7B72; /* 淺灰褐色 */
+            --accent-color: #D6C4B4; /* 裸色/奶茶色 */
+            --accent-hover: #C2AE9B; /* 深奶茶色 */
+            --radius: 16px; /* 圓角 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'PingFang TC', 'Heiti TC', 'Noto Sans TC', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 頂部導覽列 */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            scrollbar-width: none; /* 隱藏滾動條 */
+        }
+        .nav-tabs::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid transparent;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--accent-color);
+        }
+
+        .tab-btn.active {
+            background-color: var(--accent-color);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(214, 196, 180, 0.4);
+        }
+
+        /* 內容區塊 */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 卡片設計 */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 10px;
+        }
+
+        /* 網格排列 (適用於八天課程) */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .mini-card {
+            background: var(--bg-color);
+            border-radius: 12px;
+            padding: 20px;
+            transition: 0.3s;
+        }
+        .mini-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .mini-card h4 {
+            margin: 0 0 10px 0;
+            color: var(--text-main);
+            font-size: 16px;
+        }
+        .mini-card ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        /* 引言風格 */
+        .quote {
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            color: var(--accent-hover);
+            margin-bottom: 20px;
+        }
+
+        /* 底部按鈕 */
+        .footer-actions {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #EAE1D9;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            padding: 14px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-ig {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--accent-color);
+        }
+        .btn-ig:hover { background-color: var(--bg-color); }
+
+        .btn-line {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+        .btn-line:hover { background-color: var(--accent-hover); }
+
+        @media (max-width: 600px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="openTab('tab-1')">課程總覽</button>
+        <button class="tab-btn" onclick="openTab('tab-2')">實習機制</button>
+        <button class="tab-btn" onclick="openTab('tab-3')">八天系統課</button>
+        <button class="tab-btn" onclick="openTab('tab-4')">報名流程</button>
+        <button class="tab-btn" onclick="openTab('tab-5')">Q&A</button>
+    </div>
+
+    <div id="tab-1" class="tab-content active">
+        <div class="card">
+            <div class="quote">— 從零基石到職人接客，定義美甲教學新標準！ —</div>
+            <p><strong>L'amant 獨創「階梯式技術系統」</strong></p>
+            <p style="color: var(--text-light);">將複雜的美甲工藝拆解為標準化流程，從基礎理論、精準操作到商業實戰，陪妳走完從「學會」到「職業化」的最後一哩路。</p>
+        </div>
+        
+        <div class="card">
+            <h3 class="card-title">課程選擇</h3>
+            <div class="grid-2">
+                <div class="mini-card" style="cursor: pointer;" onclick="openTab('tab-3')">
+                    <h4>八天系統課 ➔</h4>
+                    <span style="font-size: 13px; color: var(--text-light);">從零到一，建立完整實力</span>
+                </div>
+                <div class="mini-card">
+                    <h4>進階大師班</h4>
+                    <span style="font-size: 13px; color: var(--text-light);">（內容籌備中，敬請期待）</span>
+                </div>
+                <div class="mini-card">
+                    <h4>一日班</h4>
+                    <span style="font-size: 13px; color: var(--text-light);">（內容籌備中，敬請期待）</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-2" class="tab-content">
+        <div class="card">
+            <div class="quote">「真．實務對接」</div>
+            <p>獨家門市實習制、雙重技術考核體系、陪跑式結業。<br>從學會技術到穩妥接客，我們全程在線，消弭妳面對真實市場的恐懼感。</p>
+            <br>
+            <p style="text-align: center; color: var(--accent-hover); font-weight: 500;">
+                「我們不只教技術，更陪妳走過最不安的實踐過程。」
+            </p>
+            <p style="text-align: center; color: var(--text-light);">
+                讓妳不再只是看影片自學，而是擁有面對市場、面對客人的真本事。
+            </p>
+        </div>
+        
+        <div class="card">
+            <h3 class="card-title">實習階段說明</h3>
+            <div class="mini-card" style="background-color: var(--bg-color);">
+                <h4>✨ 門市觀摩見習</h4>
+                <p style="color: var(--text-light); font-size: 14px; margin-bottom: 0;">進入真實營業環境，近距離觀察專業美甲師的服務流程、應對進退與節奏掌控，為獨立接客打下最安心的基礎。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-3" class="tab-content">
+        <div class="card">
+            <h3 class="card-title">八天系統課架構</h3>
+            <div class="grid-2">
+                <div class="mini-card">
+                    <h4>Day 1｜基礎觀念與工具</h4>
+                    <ul>
+                        <li>指甲構造與問題甲判斷</li>
+                        <li>美甲工具認識與使用</li>
+                        <li>前置保養理論與衛生消毒</li>
+                    </ul>
+                </div>
+                <div class="mini-card">
+                    <h4>Day 2｜手部基礎保養</h4>
+                    <ul>
+                        <li>修型（方／圓／杏仁）</li>
+                        <li>甘皮處理（推／剪）</li>
+                        <li>指緣整理</li>
+                        <li>手部完整保養流程</li>
+                    </ul>
+                </div>
+                <div class="mini-card">
+                    <h4>Day 3｜磨甲機＋卸甲安全</h4>
+                    <ul>
+                        <li>磨甲機操作（角度／力道）</li>
+                        <li>包卸流程</li>
+                        <li>化學 vs 物理卸甲</li>
+                        <li>立體素材安全拆除</li>
+                    </ul>
+                </div>
+                <div class="mini-card">
+                    <h4>Day 4｜單色凝膠</h4>
+                    <ul>
+                        <li>凝膠前置處理</li>
+                        <li>單色操作（平整度／包邊）</li>
+                        <li>凝膠持久度技巧</li>
+                    </ul>
+                </div>
+                <div class="mini-card">
+                    <h4>Day 5｜設計技法（基礎）</h4>
+                    <ul>
+                        <li>漸層（璀燦／雙色）</li>
+                        <li>法式微笑線</li>
+                        <li>線條設計</li>
+                    </ul>
+                </div>
+                <div class="mini-card">
+                    <h4>Day 6｜進階設計</h4>
+                    <ul>
+                        <li>動物紋理（豹紋）</li>
+                        <li>琥珀設計</li>
+                        <li>多層次暈染技巧</li>
+                    </ul>
+                </div>
+                <div class="mini-card">
+                    <h4>Day 7｜足部保養＋足部凝膠</h4>
+                    <ul>
+                        <li>足部泡腳與保養流程</li>
+                        <li>去角質與足部護理</li>
+                        <li>足部修型</li>
+                        <li>足部單色凝膠</li>
+                    </ul>
+                </div>
+                <div class="mini-card">
+                    <h4>Day 8｜延甲・矯正課程</h4>
+                    <ul>
+                        <li>凝膠延甲結構</li>
+                        <li>補甲技巧</li>
+                        <li>穿戴甲基礎</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-4" class="tab-content">
+        <div class="card">
+            <h3 class="card-title">報名流程</h3>
+            <div class="mini-card" style="margin-bottom: 10px;">
+                <h4>Step 1. 線上諮詢</h4>
+                <p style="font-size: 14px; color: var(--text-light); margin:0;">加入官方 LINE，由專人為您評估適合的課程。</p>
+            </div>
+            <div class="mini-card" style="margin-bottom: 10px;">
+                <h4>Step 2. 確認名額與匯款</h4>
+                <p style="font-size: 14px; color: var(--text-light); margin:0;">確認開課梯次後，完成定金匯款即保留名額。</p>
+            </div>
+            <div class="mini-card">
+                <h4>Step 3. 課前準備</h4>
+                <p style="font-size: 14px; color: var(--text-light); margin:0;">領取課前須知與專屬材料包，準備迎接美甲職人之路！</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-5" class="tab-content">
+        <div class="card">
+            <h3 class="card-title">常見問題 Q&A</h3>
+            <div class="mini-card" style="margin-bottom: 10px;">
+                <h4>Q: 完全沒有基礎可以上課嗎？</h4>
+                <p style="font-size: 14px; color: var(--text-light); margin:0;">A: 當然可以！我們的「八天系統課」專為零基礎設計，從最基本的工具認識到獨立接客，老師會手把手帶領。</p>
+            </div>
+            <div class="mini-card" style="margin-bottom: 10px;">
+                <h4>Q: 上課需要自備材料嗎？</h4>
+                <p style="font-size: 14px; color: var(--text-light); margin:0;">A: 系統課程已包含上課所需的基本耗材與工具（詳細清單可於 LINE 諮詢），人來即可學習。</p>
+            </div>
+            <div class="mini-card">
+                <h4>Q: 結業後真的能直接接客嗎？</h4>
+                <p style="font-size: 14px; color: var(--text-light); margin:0;">A: 搭配我們的「獨家門市實習制」，妳會有真實面對市場的觀摩與實踐機會，大幅降低接客的恐懼感。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-actions">
+        <a href="https://lin.ee/s0aLUQv" target="_blank" class="btn btn-line">立即預約 / LINE 諮詢</a>
+        <a href="https://www.instagram.com/le_amant.ofcl/" target="_blank" class="btn btn-ig">追蹤 Instagram 看更多作品</a>
+        <button class="tab-btn" style="margin-top: 10px; font-size: 14px;" onclick="openTab('tab-1')">返回首頁</button>
+    </div>
+
+</div>
+
+<script>
+    function openTab(tabId) {
+        // 隱藏所有內容
+        document.querySelectorAll('.tab-content').forEach(function(content) {
+            content.classList.remove('active');
+        });
+        // 移除所有按鈕的 active 狀態
+        document.querySelectorAll('.tab-btn').forEach(function(btn) {
+            btn.classList.remove('active');
+        });
+
+        // 顯示被選中的內容
+        document.getElementById(tabId).classList.add('active');
+        
+        // 尋找對應的按鈕並加上 active 狀態 (排除底部返回首頁按鈕)
+        const tabs = document.querySelectorAll('.nav-tabs .tab-btn');
+        tabs.forEach((tab, index) => {
+            if(`tab-${index+1}` === tabId) {
+                tab.classList.add('active');
+            }
+        });
+
+        // 滾動回頂部，讓體驗更滑順
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
